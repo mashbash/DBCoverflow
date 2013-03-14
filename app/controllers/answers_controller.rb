@@ -28,7 +28,15 @@ class AnswersController < ApplicationController
   end
 
   def update
-    
+    p "I'm in update!"
+    p params
+    p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    @answer = Answer.find(params[:id])
+    @answer.best = true
+    @answer.save
+    p "I'm done updating!"
+    p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    redirect_to question_path(@answer.question)
   end
 
   def responses

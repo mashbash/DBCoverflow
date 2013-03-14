@@ -1,0 +1,8 @@
+<% if best_voted?(question) %>
+  <% if answer.id == best_answer(question) %>
+    <h4>Best Answer!</h4>
+  <% end %>
+<% else %>
+  <%= link_to "Best Answer!", answer_path(answer), :method => "put" %>
+<% end %>  
+

@@ -45,7 +45,7 @@
       <li>
         <%= answer.content %>
         <%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %>
-        <%= link_to "Best Answer!", answer_path(answer), :method => "put" %>
+        <%= render :partial => 'best_answer', :locals => {answer: answer, question: @question} %>
       </li>
       <ul>
       <% if answer.responses %>
