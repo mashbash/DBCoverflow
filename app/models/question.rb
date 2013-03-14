@@ -7,4 +7,10 @@ class Question < ActiveRecord::Base
   validates :title, :content, :presence => true
 
   attr_accessible :title, :content, :user_id, :vote_count
+
+  def move_vote_counter(vote_type)
+    vote_type == 'upvote' ? self.vote_count += 1 : self.vote_count -= 1
+    self.save
+  end
+
 end
