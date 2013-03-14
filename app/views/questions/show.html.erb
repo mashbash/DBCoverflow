@@ -8,7 +8,6 @@
   <% end %>
 <% end %> 
 
-
 <div>
   Content: <%= @question.content %>
   By: <%= @question_asker.username %>
@@ -43,14 +42,14 @@
   <ul class='answers'>
     <% @question.answers.each do |answer| %>
       <li>
-        <%= answer.content %>
+        <%= answer.content %> | by: <%= username(answer) %>
         <%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %>
         <%= render :partial => 'best_answer', :locals => {answer: answer, question: @question} %>
       </li>
       <ul>
       <% if answer.responses %>
         <% answer.responses.each do |response| %>
-           <li><%= response.content %> </li>
+           <li><%= response.content %> | by: <%= username(response) %></li>
         <% end %>
       <% end %>
       </ul>    
