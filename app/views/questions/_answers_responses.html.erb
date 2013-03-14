@@ -1,5 +1,5 @@
-<%= form_tag "/answers/#{answer_id}/responses" do %>
-  <%= label_tag :content, "Enter your comment" %>
-  <%= text_area_tag :content %>
-  <%= submit_tag "Post comment" %>
+<%= form_for :answer, :url => answer_response_path(answer_id) do |f| %>
+  <%= f.label :content, "Enter your comment" %>
+  <%= f.text_area :content, :rows => 2 %>
+  <%= f.submit "Post comment" %>
 <% end %>

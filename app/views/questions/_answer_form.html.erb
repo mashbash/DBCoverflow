@@ -1,0 +1,6 @@
+<%= form_for(question.answers.build, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %>
+  <%= f.label :answer %>
+  <%= f.text_area :content , rows: 5%>
+  <%= f.hidden_field :question_id, :value => question_id %>
+  <%= f.submit %>
+<% end %>  

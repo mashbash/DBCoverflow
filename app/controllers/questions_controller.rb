@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_filter :find_question, :except => [:index, :new, :create]
   before_filter :find_asker, :except => [:index, :new, :create]
-  before_filter :build_answer, :only => [:show]
+  # before_filter :build_answer, :only => [:show]
 
   def index
     @questions = Question.all

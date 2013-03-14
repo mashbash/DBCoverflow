@@ -6,11 +6,11 @@ DBCoverflow::Application.routes.draw do
 
   match "/login" => "sessions#new"
 
-  post "/questions/:id/responses" => "questions#responses"
+  post "/questions/:id/responses" => "questions#responses", :as => :question_response
 
   post "/questions/:id/votes" => "questions#vote", :as => :vote
 
-  post "/answers/:id/responses" => "answers#responses"
+  post "/answers/:id/responses" => "answers#responses", :as => :answer_response
 
 
   resources :users

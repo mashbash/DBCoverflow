@@ -39,11 +39,14 @@
   <%= render :partial => 'questions_responses', :locals => {question_id: @question.id } %>
 </div>
 
-
 <% if @question.answers %>
   <ul class='answers'>
     <% @question.answers.each do |answer| %>
-      <li><%= answer.content %><%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %></li>
+      <li>
+        <%= answer.content %>
+        <%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %>
+        <%= link_to "Best Answer!", answer_path(answer), :method => "put" %>
+      </li>
       <ul>
       <% if answer.responses %>
         <% answer.responses.each do |response| %>
@@ -59,9 +62,9 @@
   <div class="answer_response_error"><%= flash[:error] %></div>
 <% end %>  
 
-<%= form_for(@answer, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %>
+<%= form_for(@question.answers.build, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %>
   <%= f.label :content %>
-  <%= f.text_area :content %>
+  <%= f.text_area :content, rows: 3 %>
   <%= f.hidden_field :question_id, :value => @question.id %>
   <%= f.submit %>
 <% end %>  

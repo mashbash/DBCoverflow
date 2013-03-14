@@ -35,7 +35,7 @@ class AnswersController < ApplicationController
 
   def responses
     @answer = Answer.find(params[:id])
-    @answer_responses = @answer.responses.new(user_id: current_user.id, content: params[:content])
+    @answer_responses = @answer.responses.new(user_id: current_user.id, content: params[:answer][:content])
     if @answer_responses.save
       redirect_to question_path(@answer.question.id)
     else
