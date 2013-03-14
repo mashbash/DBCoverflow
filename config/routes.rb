@@ -10,6 +10,8 @@ DBCoverflow::Application.routes.draw do
 
   post "/questions/:id/votes" => "questions#vote", :as => :vote
 
+  post "/answers/:id/responses" => "answers#responses"
+
 
   resources :users
   resources :questions

@@ -43,11 +43,21 @@
 <% if @question.answers %>
   <ul class='answers'>
     <% @question.answers.each do |answer| %>
-      <li><%= answer.content %></li>
+      <li><%= answer.content %><%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %></li>
+      <ul>
+      <% if answer.responses %>
+        <% answer.responses.each do |response| %>
+           <li><%= response.content %> </li>
+        <% end %>
+      <% end %>
+      </ul>    
     <% end %>   
-  </ul> 
+  </ul>
 <% end%>
 
+<% if flash[:error] %>
+  <div class="answer_response_error"><%= flash[:error] %></div>
+<% end %>  
 
 <%= form_for(@answer, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %>
   <%= f.label :content %>
