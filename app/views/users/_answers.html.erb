@@ -1,0 +1,13 @@
+<div class='user-answers'>
+  Answers:
+  <ul>
+    <% unless @user.answers.empty? %>
+      <% @user.answers.each do |answer| %>
+        <li><%= answer.content %></li>
+      <% end %>
+    <% end %>  
+  </ul>
+</div>    
+        
+
+

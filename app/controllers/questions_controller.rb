@@ -36,7 +36,6 @@ class QuestionsController < ApplicationController
   def show
     @errors = params[:errors] 
     @response_errors = params[:response_errors]
-
   end
 
   def responses

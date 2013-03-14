@@ -2,10 +2,10 @@
 
 
 <% if @errors %>
-<p> Answer errors! </p>
-<% @errors.each do |error| %>
-  <li><%= error %></li>
-<% end %>
+  <p> Answer errors! </p>
+  <% @errors.each do |error| %>
+    <li><%= error %></li>
+  <% end %>
 <% end %> 
 
 
@@ -22,23 +22,16 @@
 </div>  
 
 <div class='vote-errors'>
-  <% if @vote_error %>
-    <%= @vote_error %>
-  <% end %>
+  <%= render_vote_errors(@vote_error) %>
 </div>
 
-<div>
-<%= link_to "upvote!", vote_path(@question.id, :vote_type => 'upvote'), :method => :post  %>
-<%= link_to "downvote!", vote_path(@question.id, :vote_type => 'downvote'), :method => :post  %>
-
-<% if @show_errors %>
-  <%= @show_errors %>
-<% end %>  
+<div class='voting'>
+  <%= link_to "upvote!", vote_path(@question.id, :vote_type => 'upvote'), :method => :post  %>
+  <%= link_to "downvote!", vote_path(@question.id, :vote_type => 'downvote'), :method => :post  %>
 </div>
 
-<div>
+<div class='response-errors'>
   <% if @response_errors %>
-    <p> Response errors! </p>
     <% @response_errors.each do |error| %>
       <%= error %>
     <% end %>
@@ -49,9 +42,9 @@
 
 <% if @question.answers %>
   <ul class='answers'>
-  <% @question.answers.each do |answer| %>
-    <li><%= answer.content %></li>
-  <% end %>   
+    <% @question.answers.each do |answer| %>
+      <li><%= answer.content %></li>
+    <% end %>   
   </ul> 
 <% end%>
 

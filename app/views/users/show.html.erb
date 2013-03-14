@@ -3,25 +3,8 @@
 <div>Email:<%= @user.email %></div>
 
 <div><%= link_to 'Post New Question!', new_question_path %></div>
-<div>Questions:
-  <ul>
-    <% unless @user.questions.empty? %>
-      <% @user.questions.each do |question| %>
-        <li><%= link_to question.title, question_path(question) %></li>
-      <% end %>
-    <% end %>  
-  </ul>
-</div>    
 
-<div>Answers:
-  <ul>
-    <% unless @user.answers.empty? %>
-      <% @user.answers.each do |answer| %>
-        <li><%= answer.content %></li>
-      <% end %>
-    <% end %>  
-  </ul>
-</div>    
-        
+<%= render 'questions' %>
 
+<%= render 'answers' %>
 
