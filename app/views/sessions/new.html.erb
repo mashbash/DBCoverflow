@@ -1,0 +1,19 @@
+<h1>Welcome to DBC Overflow</h1>
+
+<h2>Sign In</h2>
+<div>
+  <%= form_tag "/sessions" do %>
+    <%= label_tag :username, "Enter your username:" %>
+    <%= text_field_tag :username %>
+
+    <%= label_tag :password, "Enter your password" %>
+    <%= password_field_tag :password %>
+
+    <%= submit_tag "Log in"%>
+  <% end %>
+</div>
+<br>
+<h2>Sign Up</h2>
+<div>
+  <%= render :partial => 'users/sign_up' %>
+</div>

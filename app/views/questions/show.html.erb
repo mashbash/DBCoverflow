@@ -1,0 +1,59 @@
+<h1><%= @question.title %></h1>
+
+
+<% if @errors %>
+<p> Answer errors! </p>
+<% @errors.each do |error| %>
+  <li><%= error %></li>
+<% end %>
+<% end %> 
+
+
+<div>
+  Content: <%= @question.content %>
+  By: <%= @question_asker.username %>
+  Comments: <% @question.responses.each do |response| %>
+    <%= response.content %>
+  <% end %>
+</div>
+
+<div>
+  <%= @question.vote_count %>
+</div>  
+
+<div>
+<%= link_to "upvote!", vote_path(@question.id, :vote => 'upvote'), :method => :post  %>
+<%= link_to "downvote!", vote_path(@question.id, :vote => 'downvote'), :method => :post  %>
+<% if @show_errors %>
+  <%= @show_errors %>
+<% end %>  
+</div>
+
+<div>
+  <% if @response_errors %>
+    <p> Response errors! </p>
+    <% @response_errors.each do |error| %>
+      <%= error %>
+    <% end %>
+  <% end %>
+  <%= render :partial => 'questions_responses', :locals => {question_id: @question.id } %>
+</div>
+
+
+<% if @question.answers %>
+  <% @question.answers.each do |answer| %>
+    <ul>
+      <li><%= answer.content %></li>
+    </ul>
+  <% end %>    
+<% end%>
+
+
+<%= form_for @answer do |f| %>
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+  <%= f.hidden_field :question_id, :value => @answer.question.id %>
+  <%= f.submit %>
+<% end %>  
+
+
