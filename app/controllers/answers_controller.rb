@@ -28,9 +28,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    p "yo I'm in update!"
-    p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-
+    
   end
 
   def responses

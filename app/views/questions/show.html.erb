@@ -62,11 +62,7 @@
   <div class="answer_response_error"><%= flash[:error] %></div>
 <% end %>  
 
-<%= form_for(@question.answers.build, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %>
-  <%= f.label :content %>
-  <%= f.text_area :content, rows: 3 %>
-  <%= f.hidden_field :question_id, :value => @question.id %>
-  <%= f.submit %>
-<% end %>  
+<%= render :partial => 'answer_form', :locals => { question: @question, question_id: @question.id } %>
+
 
 
