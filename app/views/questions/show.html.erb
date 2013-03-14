@@ -21,9 +21,16 @@
   <%= @question.vote_count %>
 </div>  
 
+<div class='vote-errors'>
+  <% if @vote_error %>
+    <%= @vote_error %>
+  <% end %>
+</div>
+
 <div>
-<%= link_to "upvote!", vote_path(@question.id, :vote => 'upvote'), :method => :post  %>
-<%= link_to "downvote!", vote_path(@question.id, :vote => 'downvote'), :method => :post  %>
+<%= link_to "upvote!", vote_path(@question.id, :vote_type => 'upvote'), :method => :post  %>
+<%= link_to "downvote!", vote_path(@question.id, :vote_type => 'downvote'), :method => :post  %>
+
 <% if @show_errors %>
   <%= @show_errors %>
 <% end %>  
@@ -49,10 +56,10 @@
 <% end%>
 
 
-<%= form_for @answer do |f| %>
+<%= form_for @answer do |f| %>  <%# wasn't working when @answer was in form for %>
   <%= f.label :content %>
   <%= f.text_area :content %>
-  <%= f.hidden_field :question_id, :value => @answer.question.id %>
+  <%= f.hidden_field :question_id, :value => @question.id %>
   <%= f.submit %>
 <% end %>  
 

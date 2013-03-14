@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
-  before_filter :find_question, :except => [:index]
-  before_filter :find_asker, :except => [:index]
-  before_filter :build_answer, :only => [:show, :vote]
+  before_filter :find_question, :except => [:index, :new, :create]
+  before_filter :find_asker, :except => [:index, :new, :create]
+  before_filter :build_answer, :only => [:show]
 
   def index
     @questions = Question.all
@@ -36,6 +36,7 @@ class QuestionsController < ApplicationController
   def show
     @errors = params[:errors] 
     @response_errors = params[:response_errors]
+
   end
 
   def responses
@@ -49,27 +50,27 @@ class QuestionsController < ApplicationController
   end
 
   def vote
-    puts params.inspect
-    puts @question.inspect
-    if params[:vote] == 'upvote'
-      vote_count = @question.vote_count + 1
-      @updated_question = @question.update_attributes(:vote_count => vote_count)
-      puts @updated_question.inspect
-      redirect_to question_path(@updated_question)
-    end
-    # vote = @question.votes.new(user_id: current_user.id) 
-    #   if params[:type] == 'upvote'
-    #     @question.vote_count += 1
-    #   else 
-    #     @question.vote_count -= 1
-    #   end
-    #   @question.save
-    # if vote.save 
-    #   redirect_to questions_path(@question)
-    # else
-    #   @vote_error = "you can't vote again!"
-    #   render :show
-    # end  
+    puts params
+    vote_count = @question.vote_count
+    vote = @question.votes.new(user_id: current_user.id) 
+      if vote.save
+        if params[:vote_type] == 'upvote'
+          @question.vote_count += 1
+          puts "upvote!!!!!!!!!!!!"
+          puts @question.vote_count
+
+        else 
+          @question.vote_count -= 1
+          puts "downvote!!!!!!!!!!!!"
+          puts @question.vote_count
+        end
+      @question.save
+      redirect_to question_path(@question)
+    else
+      @vote_error = "you can't vote again!"
+      @answer = @question.answers.new
+      render :show
+    end  
   end
 
   private
