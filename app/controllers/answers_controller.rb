@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+
   def new
 
   end
@@ -8,11 +9,12 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.new(user_id: current_user.id, content: params[:answer][:content], question_id: params[:answer][:question_id])
-    if @answer.save
-      redirect_to question_path(@answer.question)
-    else
-      @errors = @answer.errors.full_messages
-      redirect_to question_path(@answer.question, :errors => @errors)
+    respond_to do |format|
+      if @answer.save
+        format.js
+      else
+        format.html { redirect_to question_path(@answer.question, :errors => @errors) }
+      end
     end  
   end
 

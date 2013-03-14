@@ -48,15 +48,15 @@
 
 
 <% if @question.answers %>
+  <ul class='answers'>
   <% @question.answers.each do |answer| %>
-    <ul>
-      <li><%= answer.content %></li>
-    </ul>
-  <% end %>    
+    <li><%= answer.content %></li>
+  <% end %>   
+  </ul> 
 <% end%>
 
 
-<%= form_for @answer do |f| %>  <%# wasn't working when @answer was in form for %>
+<%= form_for(@answer, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %>
   <%= f.label :content %>
   <%= f.text_area :content %>
   <%= f.hidden_field :question_id, :value => @question.id %>
