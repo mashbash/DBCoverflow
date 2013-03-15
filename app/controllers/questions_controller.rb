@@ -55,7 +55,6 @@ class QuestionsController < ApplicationController
       redirect_to question_path(@question)
     else
       @vote_error = "you can't vote again!"
-      @answer = @question.answers.new  #ask about this!
       render :show
     end  
   end

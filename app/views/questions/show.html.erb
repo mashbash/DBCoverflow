@@ -21,10 +21,10 @@
 </div>  
 
 <div class='vote-errors'>
-  <%= render_vote_errors(@vote_error) %>
+  <%= @vote_error if @vote_error %>
 </div>
 
-<div class='voting'>
+<div class='voting'> <%# mushi make this into a partial %>
   <%= link_to "upvote!", vote_path(@question.id, :vote_type => 'upvote'), :method => :post  %>
   <%= link_to "downvote!", vote_path(@question.id, :vote_type => 'downvote'), :method => :post  %>
 </div>
@@ -45,6 +45,8 @@
         <%= answer.content %> | by: <%= username(answer) %>
         <%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %>
         <%= render :partial => 'best_answer', :locals => {answer: answer, question: @question} %>
+        <%= render :partial => 'answer_vote', :locals => { answer_id: answer.id, errors: @vote_error } %>
+        <%= answer.vote_count %>
       </li>
       <ul>
       <% if answer.responses %>

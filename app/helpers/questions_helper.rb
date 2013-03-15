@@ -5,7 +5,7 @@ module QuestionsHelper
   end
 
   def render_vote_errors(vote_error)
-     vote_error if vote_error 
+     vote_error if vote_error
   end
 
   def best_voted?(question)

@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_filter :find_answer, :find_question, :find_asker, :only => [:vote]
 
   def new
     #bugbug didn't have to instantiate a new answer object because it was done using build in quetions controller?
@@ -28,14 +29,9 @@ class AnswersController < ApplicationController
   end
 
   def update
-    p "I'm in update!"
-    p params
-    p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     @answer = Answer.find(params[:id])
     @answer.best = true
     @answer.save
-    p "I'm done updating!"
-    p ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
     redirect_to question_path(@answer.question)
   end
 
@@ -49,4 +45,29 @@ class AnswersController < ApplicationController
       redirect_to question_path(@answer.question.id) 
     end  
   end  
+
+  def vote
+    vote = @answer.votes.new(user_id: current_user.id)
+    if vote.save
+      @answer.move_vote_counter(params[:vote_type])
+      redirect_to question_path(@question)
+    else
+      redirect_to @question, :notice => "you can't vote again!"
+    end 
+  end
+
+  private 
+
+  def find_answer
+    @answer = Answer.find(params[:id])
+  end  
+
+  def find_question
+    @question = @answer.question
+  end
+
+  def find_asker
+    @question_asker = User.find(find_question.user_id)
+  end  
+
 end

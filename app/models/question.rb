@@ -12,4 +12,5 @@ class Question < ActiveRecord::Base
     vote_type == 'upvote' ? self.vote_count += 1 : self.vote_count -= 1
     self.save
   end
+
 end
