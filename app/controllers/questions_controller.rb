@@ -5,6 +5,15 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
+    @newest_questions = Question.sort_by_newest
+    @popular_questions = Question.sort_by_highest_votes
+    @most_commented_questions = Question.sort_by_most_comments
+    
+    respond_to do |format|
+      format.js
+      format.html 
+      format.json
+    end
   end
 
   def create

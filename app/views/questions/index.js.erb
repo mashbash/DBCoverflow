@@ -1,0 +1,12 @@
+$('a#newest').click(newest_first());
+// $(this).on('click', 'a#newest', function(){
+// alert(":(");
+// // $('.questionsdisplay').html("<%= j render(:partial => 'questions_list', :locals => {questions: @newest_questions})%>");  
+// });
+
+newest_first = function() {
+$('.questionsdisplay').html("<%= j render(:partial => 'questions_list', :locals => {questions: @newest_questions})%>");
+};
+
+
+

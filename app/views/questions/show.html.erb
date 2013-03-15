@@ -16,7 +16,11 @@
   By: <%= @question_asker.username %>
   <ul>
   Comments: <% @question.responses.each do |response| %>
-    <li><%= response.content %></li>
+    <li><%= response.content %>
+        <%= link_to "upvote!", response_vote_path(response.id, :vote_type => 'upvote'), :method => :post  %>
+        <%= link_to "downvote!", response_vote_path(response.id, :vote_type => 'downvote'), :method => :post  %>
+        <%= response.vote_count %>
+     </li>   
   <% end %>
 </div>
 
