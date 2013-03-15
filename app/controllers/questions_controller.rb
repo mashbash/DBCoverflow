@@ -8,7 +8,6 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    puts params
     @question = Question.new(title: params[:question][:title], 
                              content: params[:question][:content], 
                              user_id: current_user.id)
@@ -43,8 +42,8 @@ class QuestionsController < ApplicationController
     if @question_response.save
       redirect_to question_path(@question)
     else 
-      @errors = @question_response.errors.full_messages  
-      redirect_to question_path(@question, :response_errors => @errors)
+      @response_errors = @question_response.errors.full_messages  
+      redirect_to question_path(@question, :response_errors => @response_errors)
     end
   end
 

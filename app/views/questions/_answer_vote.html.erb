@@ -1,6 +1,4 @@
 <%= link_to "upvote!", answer_vote_path(answer_id, :vote_type => 'upvote'), :method => :post  %>
 <%= link_to "downvote!", answer_vote_path(answer_id, :vote_type => 'downvote'), :method => :post  %>
-<% if errors %>
-  <%= errors %>
-<% end %>  
+
 

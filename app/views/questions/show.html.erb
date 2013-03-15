@@ -1,18 +1,22 @@
 <h1><%= @question.title %></h1>
 
-
-<% if @errors %>
-  <p> Answer errors! </p>
-  <% @errors.each do |error| %>
-    <li><%= error %></li>
+<div class='errors'>
+  <% if @response_errors %>
+  <p> Response error: <%=@response_errors.join(". ")%></p>
   <% end %>
-<% end %> 
+
+  <% if flash[:error] %>
+    <div class="answer_response_error">Comment on Answer Error: <%= flash[:error] %></div>
+  <% end %>  
+</div>
+
 
 <div>
   Content: <%= @question.content %>
   By: <%= @question_asker.username %>
+  <ul>
   Comments: <% @question.responses.each do |response| %>
-    <%= response.content %>
+    <li><%= response.content %></li>
   <% end %>
 </div>
 
@@ -29,39 +33,35 @@
   <%= link_to "downvote!", vote_path(@question.id, :vote_type => 'downvote'), :method => :post  %>
 </div>
 
-<div class='response-errors'>
-  <% if @response_errors %>
-    <% @response_errors.each do |error| %>
-      <%= error %>
-    <% end %>
-  <% end %>
-  <%= render :partial => 'questions_responses', :locals => {question_id: @question.id } %>
-</div>
+
+<%= render :partial => 'questions_responses', :locals => {question_id: @question.id } %>
 
 <% if @question.answers %>
   <ul class='answers'>
     <% @question.answers.each do |answer| %>
       <li>
         <%= answer.content %> | by: <%= username(answer) %>
-        <%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %>
         <%= render :partial => 'best_answer', :locals => {answer: answer, question: @question} %>
-        <%= render :partial => 'answer_vote', :locals => { answer_id: answer.id, errors: @vote_error } %>
+        <%= render :partial => 'answer_vote', :locals => { answer_id: answer.id } %>
         <%= answer.vote_count %>
+          <ul>
+            <% if answer.responses %>
+              <% answer.responses.each do |response| %>
+                <li><%= response.content %> | by: <%= username(response) %>
+                <%= render :partial => 'response_vote', :locals => { response_id: response.id } %>
+                <%= response.vote_count %>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>    
+        <%= render :partial => 'answers_responses', :locals => { answer_id: answer.id } %>
       </li>
-      <ul>
-      <% if answer.responses %>
-        <% answer.responses.each do |response| %>
-           <li><%= response.content %> | by: <%= username(response) %></li>
-        <% end %>
-      <% end %>
-      </ul>    
+
     <% end %>   
   </ul>
 <% end%>
 
-<% if flash[:error] %>
-  <div class="answer_response_error"><%= flash[:error] %></div>
-<% end %>  
+
 
 <%= render :partial => 'answer_form', :locals => { question: @question, question_id: @question.id } %>
 

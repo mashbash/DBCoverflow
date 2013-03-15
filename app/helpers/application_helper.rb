@@ -1,7 +1,7 @@
 module ApplicationHelper
 
-  def username(arg)
-    user = User.find(arg.user_id)
+  def username(type)
+    user = User.find(type.user_id)
     user.username
   end  
 

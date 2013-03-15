@@ -1,5 +1,9 @@
 DBCoverflow::Application.routes.draw do
 
+  get "responses/vote"
+
+  get "response/vote"
+
   root :to => "sessions#new"
 
   match "/logout" => "sessions#destroy"

@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if flash[:notice] %>
+  <% if flash[:notice] %>
     <p class="flash-notice"><%= flash[:notice] %></p>
   <% end %>
 <%= User.find(session[:user_id]).username if session[:user_id] %>

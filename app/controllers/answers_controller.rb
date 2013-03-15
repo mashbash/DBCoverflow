@@ -14,7 +14,8 @@ class AnswersController < ApplicationController
       if @answer.save
         format.js
       else
-        format.html { redirect_to question_path(@answer.question, :errors => @errors) }
+        format.js
+        format.html { redirect_to question_path(@answer.question) }
       end
     end  
   end
@@ -36,7 +37,7 @@ class AnswersController < ApplicationController
   end
 
   def responses
-    @answer = Answer.find(params[:id])
+    @answer = Answer.find(params[:id]) #mushi this is not needed? check before filter
     @answer_responses = @answer.responses.new(user_id: current_user.id, content: params[:answer][:content])
     if @answer_responses.save
       redirect_to question_path(@answer.question.id)

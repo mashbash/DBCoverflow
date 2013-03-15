@@ -1,2 +1,5 @@
 $('.answers').append("<li><%= @answer.content%></li>");
-$('.new_answer').find('textarea[name="answer[content]"]').val('')
+$('.new_answer').find('textarea[name="answer[content]"]').val('');
+<%if @answer.errors.any?%>
+  alert("<%= @answer.errors.full_messages.join(". ").html_safe%>");
+<%end%>

@@ -1,6 +1,6 @@
 <%= form_for(question.answers.build, :remote => true) do |f| %>  <%# wasn't working when @answer was in form for %> <%#mushi this is calling on ajax that's why only the answer shows up on browswer without it's comment box%>
   <%= f.label :answer, "Add Answer" %>
   <%= f.text_area :content , rows: 5%>
-  <%= f.hidden_field :question_id, :value => question_id %>
+  <%= f.hidden_field :question_id, :value => question_id %> <%# mushi shouldn't have hidden field??%>
   <%= f.submit %>
 <% end %>  
